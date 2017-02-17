@@ -1,0 +1,81 @@
+@import url('http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
+  font-size: 80%;
+}
+
+@media print {
+  font-size: 50%;
+}
+
+@media screen {
+  font-size: 100%;
+
+  #resume {
+    position:absolute;
+    top:25%;
+    right:10%;
+  }
+}
+
+#header {
+  width: 100%;
+  text-align: center;
+}
+
+#resume {
+  margin: 0px;
+  padding: 0px;
+  width: 720px;
+  height: 950px;
+  position: absolute;
+  left: 25%;
+  clear: both;
+  background-color: white;
+  page-break-after: always;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 3rem;
+  text-transform: lowercase;
+  margin: 0px
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+h2:first-letter {
+  font-size: 1.3rem;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin-top: -10px;
+  margin-bottom: -10px
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.employer {
+  text-align: left;
+}
+.date {
+  float: right;
+  text-align: right;
+  width: 100%
+  margin-top: -40px;
+}
+
+.column-left{ float: left; width: 33%; }
+.column-right{ float: right; width: 33%; }
+.column-center{ display: inline-block; width: 33%; }

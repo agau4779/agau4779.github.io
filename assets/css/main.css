@@ -1,0 +1,94 @@
+@import url('http://fonts.googleapis.com/css?family=Roboto:100,300,400,700');
+
+/*tiled background from http://subtlepatterns.com/random-grey-variations/ */
+body {
+  background-image:url('../images/bg.png');
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: repeat;
+  font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeLegibility;
+  max-width: 600px;
+  margin: 50px;
+}
+
+#main {
+  position:absolute;
+  top:25%;
+  right:10%;
+  text-align: right;
+  vertical-align: middle;
+}
+
+ul#nav {
+  margin: 0px;
+  padding-right: 10px;
+  list-style: none;
+  text-transform: lowercase;
+}
+
+#nav li {
+  display: inline;
+  padding: 0px 10px;
+}
+
+#nav li a {
+  font-weight: 100;
+  font-size: 1.2em;
+  color: white;
+}
+
+.name {
+  font-weight: 100;
+  font-size: 6em;
+  color: white;
+  text-transform: lowercase;
+  margin-bottom: 20px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e54478 !important;
+}
+
+h2 {
+  font-size: 1.5em;
+  color:white;
+  font-weight: 400;
+  margin-bottom: 0;
+  text-transform: lowercase;
+}
+
+p {
+  font-size: 1em;
+  color:white;
+  font-weight: 300;
+  text-transform: lowercase;
+}
+
+hr {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+  border-color: white;
+}
+
+@media screen and (max-width: 560px) {
+  .name {
+    font-size: 4em;
+  }
+
+  h2 {
+    font-size: 1em;
+  }
+
+  p {
+    font-size: 0.8em;
+  }
+}
