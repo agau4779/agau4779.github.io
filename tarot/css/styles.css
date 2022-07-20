@@ -1,0 +1,66 @@
+body {
+  background: #000066;
+}
+
+.container {
+  width: 100%;
+}
+
+.spread {
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  float: left;
+  margin-right: 10px;
+  width: 150px;
+  height: 260px;
+  border-radius: 10px;
+  background: #fff;
+  -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+}
+
+.card img {
+  width: 150px;
+  border-radius: 10px;
+}
+
+#celtic-cross-0 {
+  z-index: 0;
+  position: absolute;
+  left: 300px;
+  top: 300px;
+}
+
+#celtic-cross-1 {
+  position: absolute;
+  left: 300px;
+  top: 300px;
+  rotate: 90deg;
+}
+
+#celtic-cross-2 {
+  position: absolute;
+  left: 300px;
+  top: 600px;
+}
+
+#celtic-cross-3 {
+  position: absolute;
+  top: 300px;
+  left: 50px;
+}
+
+#celtic-cross-4 {
+  position: absolute;
+  top: 300px;
+  left: 550px;
+}
+
+#celtic-cross-5 {
+  position: absolute;
+  top: 0px;
+  left: 300px;
+}
