@@ -1,0 +1,37 @@
+@import url('http://fonts.googleapis.com/css?family=Roboto:100,300,400,700');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+/*tiled background from http://subtlepatterns.com/random-grey-variations/ */
+body {
+  background-image:url('../images/lemons.png');
+  background-size: 250px;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: repeat;
+  font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeLegibility;
+  max-width: 600px;
+  margin: 50px;
+  color: #00633a;
+}
+
+@media screen and (max-width: 560px) {
+  #main {
+  	max-width: 80% !important;
+  }
+}
+
+#main {
+  background-color: rgba(184, 255, 225, 0.88);
+  position:absolute;
+  top:5%;
+  left:5%;
+  padding: 1rem;
+  max-width: 600px;
+  vertical-align: middle;
+}
+
+.code {
+	font-family: 'Roboto Mono', monospace;
+	background-color: white;
+}
