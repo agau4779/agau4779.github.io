@@ -1,0 +1,113 @@
+body {
+  background-image: url("images/vynnie-bg.jpg");
+  overflow-x: hidden;
+  min-height: 100vh;
+  /* If you want to change the site height you can remove overflow-y */
+  /* pureSnow will automatically detect height of body tag */
+  overflow-y: hidden;
+  color: white;
+  background-size: cover;
+}
+
+#toggle-snow {
+  background-color: #080808;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-left: 44%;
+}
+
+.vynnie {
+  z-index: -1;
+  position: absolute;
+  width: 380px;
+  height: 266px;
+  background-image: url("images/vynnie.png");
+  filter: drop-shadow(0 0 10px white);
+}
+
+.fan {
+  z-index: -1;
+  position: absolute;
+  width: 300px;
+  height: 166px;
+  background-image: url("images/fan.png");
+  filter: drop-shadow(0 0 10px white);
+}
+
+.raquet {
+  z-index: -1;
+  position: absolute;
+  width: 199px;
+  height: 500px;
+  background-image: url("images/raquet.png");
+  filter: drop-shadow(0 0 10px white);
+}
+
+.owl {
+  z-index: -1;
+  position: absolute;
+  width: 220px;
+  height: 121px;
+  background-image: url("images/owl.png");
+  filter: drop-shadow(0 0 10px white);
+}
+
+.d20 {
+  z-index: -1;
+  position: absolute;
+  width: 499px;
+  height: 500px;
+  background-image: url("images/d20.gif");
+  filter: drop-shadow(0 0 10px white);
+}
+
+.elmo {
+  z-index: -1;
+  position: absolute;
+  width: 500px;
+  height: 329px;
+  background-image: url("images/elmo.png");
+  filter: drop-shadow(0 0 10px black);
+}
+
+.sharpie {
+  z-index: -1;
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  background-image: url("images/sharpie.gif");
+  filter: drop-shadow(0 0 10px white);
+}
+
+.boba {
+  z-index: -1;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-image: url("images/boba.png");
+  filter: drop-shadow(0 0 10px sandybrown);
+}
+
+
+h1, h2 {
+  font-family: "Ribeye Marrow", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-color: white;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  z-index: 1;
+  text-align: center;
+
+}
+
+
+h1 {
+  font-size: 3rem;
+}
