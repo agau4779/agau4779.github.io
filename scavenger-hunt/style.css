@@ -1,0 +1,30 @@
+body {
+  background-image: url("images/galaxy.jpg");
+  overflow-x: hidden;
+  min-height: 100vh;
+  overflow-y: hidden;
+  color: white;
+  background-size: contain;
+}
+
+
+h1, h2 {
+  font-family: "Ribeye Marrow", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-color: white;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  z-index: 1;
+  text-align: center;
+
+}
+
+
+h1 {
+  font-size: 3rem;
+}
+
+.catpic {
+  width: 250px;
+  margin-left: 40%;
+}
