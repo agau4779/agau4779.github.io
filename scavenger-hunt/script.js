@@ -23,43 +23,29 @@ function markPageVisited() {
     
     // Set cookie with page name (without .html extension) as the key
     const pageName = currentPage.replace('.html', '');
+
+    // For web domains, use cookies as before
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + (3 * 24 * 60 * 60 * 1000)); // 3 days
     
-    if (isFileProtocol) {
-        // For file:// URLs, use localStorage instead of cookies (cookies don't work well with file://)
-        localStorage.setItem(`visited_${pageName}`, 'true');
-        console.log(`Page ${pageName} marked as visited via localStorage (file:// protocol)!`);
-    } else {
-        // For web domains, use cookies as before
-        const expirationDate = new Date();
-        expirationDate.setTime(expirationDate.getTime() + (3 * 24 * 60 * 60 * 1000)); // 3 days
-        
-        document.cookie = `visited_${pageName}=true; expires=${expirationDate.toUTCString()}; path=/`;
-        console.log(`Page ${pageName} marked as visited via cookie on domain ${hostname}!`);
-    }
-    
+    document.cookie = `visited_${pageName}=true; expires=${expirationDate.toUTCString()}; path=/`;
+    console.log(`Page ${pageName} marked as visited via cookie on domain ${hostname}!`);    
     return true;
 }
 
 // Function to check if a specific page has been visited
 function isPageVisited(pageName) {
-    const protocol = window.location.protocol;
+    // For web domains, check cookies
+    const cookieName = `visited_${pageName}=`;
+    const cookies = document.cookie.split(';');
     
-    if (protocol === 'file:') {
-        // For file:// URLs, check localStorage
-        return localStorage.getItem(`visited_${pageName}`) === 'true';
-    } else {
-        // For web domains, check cookies
-        const cookieName = `visited_${pageName}=`;
-        const cookies = document.cookie.split(';');
-        
-        for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.indexOf(cookieName) === 0) {
-                return cookie.substring(cookieName.length) === 'true';
-            }
+    for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.indexOf(cookieName) === 0) {
+            return cookie.substring(cookieName.length) === 'true';
         }
-        return false;
     }
+    return false;
 }
 
 // Function to check if all required pages have been visited
@@ -101,22 +87,11 @@ function getScavengerHuntStatus(requiredPages = cats) {
 
 // Function to reset the scavenger hunt (clear all cookies/localStorage)
 function resetScavengerHunt(requiredPages = cats) {
-    const protocol = window.location.protocol;
-    
-    if (protocol === 'file:') {
-        // For file:// URLs, clear localStorage
-        for (const page of requiredPages) {
-            localStorage.removeItem(`visited_${page}`);
-        }
-        console.log('Scavenger hunt reset - all localStorage progress cleared');
-    } else {
-        // For web domains, clear cookies
-        for (const page of requiredPages) {
-            // Set cookie to expire in the past to delete it
-            document.cookie = `visited_${page}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-        }
-        console.log('Scavenger hunt reset - all cookie progress cleared');
+    for (const page of requiredPages) {
+        // Set cookie to expire in the past to delete it
+        document.cookie = `visited_${page}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
     }
+    console.log('Scavenger hunt reset - all cookie progress cleared');
 }
 
 // Auto-mark current page as visited when script loads
