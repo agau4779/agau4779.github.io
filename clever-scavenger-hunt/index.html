@@ -130,6 +130,12 @@
 
         // Run when page loads
         document.addEventListener('DOMContentLoaded', initializePage);
+
+        // Auto-refresh every 2 seconds to check for updates
+        setInterval(() => {
+            generateItemGrid();
+            updateProgress();
+        }, 2000);
     </script>
 </body>
 </html>
