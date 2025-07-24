@@ -1,6 +1,7 @@
 const cats = [
 	"vega-back",
-	"vega-angry"
+	"vega-angry",
+    "vega-passed-out"
 ];
 
 // Scavenger Hunt JavaScript Functions

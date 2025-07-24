@@ -35,8 +35,9 @@
         // Scavenger Hunt JavaScript Functions (simplified version for index page)
         // Configuration - define your cats and their corresponding pages
         const cats = [
-            { name: 'Angry Vega', shortname: 'vega-angry', emoji: '🍎', image: 'images/cats/vega-angry.png', page: 'vega-angry.html' },
-            { name: 'Looking Back Vega', shortname: 'vega-back', emoji: '🍊', image: 'images/cats/vega-back.png', page: 'vega-back.html' }
+            { name: 'Angry Vega', shortname: 'vega-angry', image: 'images/cats/vega-angry.png', page: 'vega-angry.html' },
+            { name: 'Looking Back Vega', shortname: 'vega-back', image: 'images/cats/vega-back.png', page: 'vega-back.html' },
+            { name: 'Passed Out Vega', shortname: 'vega-passed-out', image: 'images/cats/vega-passed-out.png', page: 'vega-passed-out.html' }
         ];
 
         // Function to check if a specific page has been visited
@@ -63,15 +64,12 @@
                 const isVisited = isPageVisited(cat.shortname);
                 
                 const catItem = document.createElement('a');
-                catItem.href = cat.page;
                 catItem.className = `cat-item ${isVisited ? 'visited' : 'unvisited'}`;
                 
                 catItem.innerHTML = `
                     <img src="${cat.image}" alt="${cat.name}" class="cat-image" onerror="this.style.display='none'; this.nextElementSibling.style.fontSize='4em';">
-                    <div style="font-size: 4em; display: none;">${cat.emoji}</div>
                     <div class="cat-label">${cat.name}</div>
                 `;
-                
                 grid.appendChild(catItem);
             });
         }
