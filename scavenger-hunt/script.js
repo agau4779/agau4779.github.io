@@ -1,8 +1,21 @@
 const cats = [
-	"vega-back",
-	"vega-angry",
+    "vega-back",
+    "vega-angry",
     "vega-passed-out"
 ];
+
+// Quiz configuration - add questions for each page
+const quizConfig = {
+    "vega-angry": {
+        correctAnswer: "yogurt"
+    },
+    "vega-back": {
+        correctAnswer: "Vega ran away from home"
+    },
+    "vega-passed-out": {
+        correctAnswer: "steak"
+    },
+};
 
 // Scavenger Hunt JavaScript Functions
 // Function to set a cookie marking the current page as visited
@@ -24,7 +37,6 @@ function markPageVisited() {
     
     // Set cookie with page name (without .html extension) as the key
     const pageName = currentPage.replace('.html', '');
-
     // For web domains, use cookies as before
     const expirationDate = new Date();
     expirationDate.setTime(expirationDate.getTime() + (3 * 24 * 60 * 60 * 1000)); // 3 days
@@ -95,21 +107,85 @@ function resetScavengerHunt(requiredPages = cats) {
     console.log('Scavenger hunt reset - all cookie progress cleared');
 }
 
-// Auto-mark current page as visited when script loads
-// Uncomment the line below if you want pages to be automatically marked as visited
-// markPageVisited();
-
-// Example usage:
-
-// On each scavenger hunt page (apple.html, orange.html, banana.html), call:
-markPageVisited();
-
-// To check if hunt is complete:
-if (checkAllPagesVisited()) {
-    alert('Congratulations! You found all the pages!');
+// Quiz handling functions
+function handleQuizSubmission() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const pageName = currentPage.replace('.html', '');
+    const quizData = quizConfig[pageName];
+    
+    if (!quizData) {
+        // If no quiz configured for this page, mark as visited immediately
+        markPageVisited();
+        showReturnButton();
+        return;
+    }
+    
+    const form = document.getElementById('quiz-form');
+    const feedback = document.getElementById('quiz-feedback');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+        
+        if (!selectedAnswer) {
+            feedback.innerHTML = '<p style="color: orange;">Please select an answer!</p>';
+            return;
+        }
+        
+        if (selectedAnswer.value === quizData.correctAnswer) {
+            // Hide the quiz form
+            document.getElementById('quiz-section').style.display = 'none';
+            
+            // Show success message
+            document.getElementById('success-message').style.display = 'block';
+            
+            // Mark page as visited and show return button
+            markPageVisited();
+            showReturnButton();
+            
+            // Check if all pages are complete
+            if (checkAllPagesVisited()) {
+                setTimeout(() => {
+                    alert('Congratulations! You found all the pages!');
+                }, 500);
+            }
+        } else {
+            feedback.innerHTML = '<p style="color: red;">Incorrect! Please try again.</p>';
+            
+            // Clear the selected radio button so they can choose again
+            selectedAnswer.checked = false;
+        }
+    });
 }
 
-// To get detailed status:
-const status = getScavengerHuntStatus();
-console.log(status);
-// Output example: { pages: { apple: true, orange: false, banana: true }, completed: false, progress: "2/3" }
+function showReturnButton() {
+    const returnButton = document.getElementById('return-button');
+    if (returnButton) {
+        returnButton.style.display = 'block';
+    }
+}
+
+// Initialize page
+function initializePage() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const pageName = currentPage.replace('.html', '');
+    
+    // Check if page was already visited
+    if (isPageVisited(pageName)) {
+        // Hide quiz and show success message and return button
+        const quizSection = document.getElementById('quiz-section');
+        if (quizSection) {
+            quizSection.style.display = 'none';
+        }
+        document.getElementById('success-message').style.display = 'block';
+        showReturnButton();
+        console.log(`Page ${pageName} already completed`);
+    } else {
+        // Set up quiz handling
+        handleQuizSubmission();
+    }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', initializePage);

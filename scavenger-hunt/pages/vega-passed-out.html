@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding 2025 Scavenger Hunt</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <script src="../script.js" defer></script>
+  </head>
+  <body>
+    <h1>
+      Vega passed out
+    </h1>
+    <h2>
+      January 2021
+    </h2>
+    <img src="../images/cats/vega-passed-out.png" class="catpic">
+    <!-- Quiz Section -->
+    <div id="quiz-section" class="container">
+      <h3 class="quiz-question">Which of the following is Vega's favorite?</h3>
+      <div id="quiz-feedback"></div>
+      <form id="quiz-form">
+        <div class="quiz-options">
+          <label class="quiz-option">
+            <input type="radio" name="answer" value="fish">
+            <span class="quiz-option-text">Fish</span>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="answer" value="steak">
+            <span class="quiz-option-text">Steak</span>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="answer" value="soybeans">
+            <span class="quiz-option-text">Soybeans</span>
+          </label>
+        </div>
+        <button type="submit" class="quiz-submit-btn">Submit Answer</button>
+      </form>
+    </div>
+    
+    <!-- Success message - initially hidden -->
+    <div id="success-message" class="container" style="display: none;">
+      <p style="color: #FFFFFF; font-size: 1.3em; text-align: center; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+        🎉 You got it! The cat's in the bag! 🎉
+      </p>
+    </div>
+    
+    <!-- Return button - initially hidden -->
+    <a class="return-button" href="../index.html" id="return-button" style="display: none;">Return to Progress</a>
+  </body>
+</html>
