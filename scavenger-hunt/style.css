@@ -13,7 +13,7 @@ body {
 }
 
 .catpic {
-  width: 250px;
+  width: 300px;
 }
 
 * {
@@ -35,7 +35,7 @@ h1 {
     font-family: "Orbitron", sans-serif;
     color: white;
     text-align: center;
-    font-size: 2.5em;
+    font-size: 1.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     font-weight: 600;
 }
@@ -44,7 +44,7 @@ h2 {
     font-family: "Orbitron", sans-serif;
     color: white;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     font-weight: 400;
     margin-bottom: 20px;
@@ -52,9 +52,9 @@ h2 {
 
 .cat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 5px;
-    max-width: 500px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 3px;
+    max-width: 450px;
     margin: 0 auto;
 }
 
@@ -67,8 +67,8 @@ h2 {
 }
 
 .cat-image {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 20px;
     object-fit: cover;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -104,7 +104,7 @@ h2 {
 }
 
 .cat-label {
-    margin-top: 15px;
+    margin-top: 5px;
     color: white;
     font-size: 1em;
     font-weight: bold;
@@ -182,7 +182,7 @@ h2 {
 .quiz-options {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
     margin-bottom: 25px;
     max-width: 300px;
     margin-left: auto;
@@ -195,7 +195,7 @@ h2 {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
-    padding: 15px 20px;
+    padding: 5px 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
