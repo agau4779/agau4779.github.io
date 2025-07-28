@@ -39,7 +39,7 @@ function markPageVisited() {
 
     // For web domains, use cookies as before
     const expirationDate = new Date();
-    expirationDate.setTime(expirationDate.getTime() + (3 * 24 * 60 * 60 * 1000)); // 3 days
+    expirationDate.setTime(expirationDate.getTime() + (5 * 24 * 60 * 60 * 1000)); // 3 days
     
     document.cookie = `visited_${pageName}=true; expires=${expirationDate.toUTCString()}; path=/`;
     console.log(`Page ${pageName} marked as visited via cookie on domain ${hostname}!`);    
