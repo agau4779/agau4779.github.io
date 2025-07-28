@@ -1,20 +1,56 @@
 const cats = [
-    "vega-back",
+    "ko-cryptid",
+    "ko-grumpy",
+    "ko-loaf",
+    "ko-pop",
+    "ko-sleepy",
+    "ko-stare",
     "vega-angry",
-    "vega-passed-out"
+    "vega-back",
+    "vega-orb",
+    "vega-passed-out",
+    "vega-tongue",
+    "vega-wise"
 ];
 
 // Quiz configuration - add questions for each page
 const quizConfig = {
+    "ko-cryptid": {
+        correctAnswer: "vega"
+    },
+    "ko-grumpy": {
+        correctAnswer: "she remains on the bed"
+    },
+    "ko-loaf": {
+        correctAnswer: "Behind a house in Berkeley"
+    },
+    "ko-pop": {
+        correctAnswer: "she follows the dog"
+    },
+    "ko-sleepy": {
+        correctAnswer: "ko"
+    },
+    "ko-stare": {
+        correctAnswer: "paper bags"
+    },
     "vega-angry": {
         correctAnswer: "yogurt"
     },
     "vega-back": {
         correctAnswer: "Vega ran away from home"
     },
+    "vega-orb": {
+        correctAnswer: "15"
+    },
     "vega-passed-out": {
         correctAnswer: "steak"
     },
+    "vega-tongue": {
+        correctAnswer: "vega"
+    },
+    "vega-wise": {
+        correctAnswer: "ko"
+    }
 };
 
 // Scavenger Hunt JavaScript Functions
