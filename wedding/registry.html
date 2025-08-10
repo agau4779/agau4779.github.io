@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashley and Koushik Wedding Registry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Alegreya', serif;
+            background-image: url("registry-tiled-bg.jpg");
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background-color: #F5F5DC;
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        .subtitle {
+            font-weight: 700;
+            font-size: 1.85rem !important;
+            color: #633;
+            text-align: center;
+            font-variant: small-caps;
+            margin-bottom: 0px !important;
+        }
+        .card h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            color: #633;
+            line-height: 1.2;
+            text-align: center;
+        }
+        .card > p {
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #200;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .payment-methods {
+            margin-top: 30px;
+        }
+        .payment-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 16px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+        .payment-item:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .payment-logo {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .payment-details {
+            flex: 1;
+        }
+        .payment-details h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #633;
+            margin-bottom: 6px;
+        }
+        .payment-details p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.4;
+        }
+        .payment-details a {
+            color: #B7472A;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .payment-details a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Logo styles */
+        .venmo-logo {
+            background: linear-gradient(135deg, #3D95CE, #1F7FB8);
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .paypal-logo {
+            background: linear-gradient(135deg, #0070BA, #003087);
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .zelle-logo {
+            background: linear-gradient(135deg, #6D1ED4, #4A0E94);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <p class="subtitle">Ashley and Koushik's</p>
+        <h1>Wedding Registry</h1>       
+        <p>
+            Thank you for being part of our special day! Whether you're joining us in person or celebrating from afar, we really appreciate your love and support. 
+        </p>
+        <p>
+            While we appreciate any gifts you may wish to bring, we prefer cash or gift cards as gifts to keep things simple. We accept cash in person but also electronically through the following options:
+        </p> 
+        <div class="payment-methods">
+            <div class="payment-item">
+                <div class="payment-logo venmo-logo">
+                    Venmo
+                </div>
+                <div class="payment-details">
+                    <h2>Venmo</h2>
+                    <p>Please Venmo <a href="https://account.venmo.com/u/ochazake">@ochazake</a>. If prompted for the last four digits of a phone number, please put 2636.</p>
+                </div>
+            </div>
+            
+            <div class="payment-item">
+                <div class="payment-logo paypal-logo">
+                    PayPal
+                </div>
+                <div class="payment-details">
+                    <h2>PayPal</h2>
+                    <p>Send money through PayPal at <a href="https://paypal.me/agau4779">paypal.me/agau4779</a>.</p>
+                </div>
+            </div>
+            
+            <div class="payment-item">
+                <div class="payment-logo zelle-logo">
+                    Zelle
+                </div>
+                <div class="payment-details">
+                    <h2>Zelle</h2>
+                    <p>Send to Ashley Gau at <a href="tel:732-272-2636">732-272-2636</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
