@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Alegreya", serif;
+            background: linear-gradient(135deg, #d4704b, #c5633f);
+            background-image: url("tiled-bg.jpg");
+            background-size: 25%;
+            color: #a8561e;
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background-color: #f7f3e9;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            padding: 0 0 30px 0;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: #a8561e;
+            font-style: italic;
+            font-weight: 400;
+            border-bottom: 1px solid rgba(139, 75, 61, 0.3);
+        }
+
+        .menu-section {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #a8561e;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-variant: small-caps;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+        }
+
+        .item-name {
+            font-size: 1.4rem;
+            color: #a8561e;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+
+        .dietary-info {
+            font-size: 0.9rem;
+            color: #a66b5d;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .footer-section {
+            margin-top: 50px;
+            text-align: center;
+            padding: 25px 0 0 0;
+            border-top: 1px solid rgba(168, 86, 30, 0.3);
+        }
+
+        .couple_name {
+            font-size: 1.3rem;
+            color: #a8561e;
+            font-variant: small-caps;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            color: #a8561e;
+            font-weight: normal;
+            font-variant: small-caps;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                letter-spacing: 1.5px;
+            }
+
+            .item-name {
+                font-size: 1.5rem;
+            }
+
+            .dietary-info {
+                font-size: 0.8rem;
+            }
+        }
+
+            .decorative-element {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+
+            .item-name {
+                font-size: 1.25rem;
+            }
+
+            .dietary-info {
+                font-size: 0.75rem;
+            }
+
+            .date {
+                font-size: 0.85rem;
+                letter-spacing: 0.5px;
+            }
+
+            .footer-section {
+                margin-top: 40px;
+                padding: 20px 0;
+            }
+
+            .couple_name {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Menu</h1>
+        </header>
+
+        <section class="menu-section">
+            <h2 class="section-title">Appetizers</h2>
+            <div class="menu-item">
+                <div class="item-name">Cajun Paneer Tikka</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Veg Cutlet</div>
+                <div class="dietary-info">Contains Gluten, Nuts Free, Dairy Free</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Chicken Tikka Achari</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Nizami Lamb Shammi</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2 class="section-title">Beverages</h2>
+            <div class="menu-item">
+                <div class="item-name">Saffron Cardamom Lemonade</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Water</div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2 class="section-title">Main Course</h2>
+            <div class="menu-item">
+                <div class="item-name">Panchtrani Dal</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Kadai Paneer</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Cauliflower and Green Peas Sauté Spinach Poriyal</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Tandoori Chicken</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Goat Masala</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Murgh Do Pyaza</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Coconut Stew Banana Leaf Poached Halibut</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2 class="section-title">Side Dishes</h2>
+            <div class="menu-item">
+                <div class="item-name">Saffron Rice</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Naan and Garlic Naan</div>
+                <div class="dietary-info">Contains Gluten, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Raita</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Veg Salad</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Dairy Free</div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2 class="section-title">Desserts</h2>
+            <div class="menu-item">
+                <div class="item-name">Kala Jamun with Rabri</div>
+                <div class="dietary-info">Contains Gluten, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Mango Kulfi</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Contains Dairy</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">Rasgoola</div>
+                <div class="dietary-info">Gluten Free, Nuts Free, Contains Dairy</div>
+            </div>
+        </section>
+
+        <section class="footer-section">
+            <div class="couple_name">Ashley and Koushik</div>
+            <div class="date">August 22nd, 2025</div>
+        </section>
+    </div>
+</body>
+</html>
