@@ -183,7 +183,7 @@ function handleQuizSubmission() {
             // Check if all pages are complete
             if (checkAllPagesVisited()) {
                 setTimeout(() => {
-                    alert('Congratulations! You found all the pages!');
+                    alert('Congratulations! Let Adrien Gau know if you want a prize!');
                 }, 500);
             }
         } else {
