@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Anime Zodiac</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D0A1F; --bg2:#15102E;
+    --ink:#ECE4D2; --ink-dim:#A79FC4;
+    --gold:#D8A94A; --gold-soft:#E8C77E;
+    --vermilion:#E0503E;
+    --line:rgba(216,169,74,.28);
+    --line-faint:rgba(216,169,74,.14);
+    --display:"Shippori Mincho",serif;
+    --sans:"Zen Kaku Gothic New",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:
+      radial-gradient(1100px 700px at 50% -10%, rgba(120,90,200,.22), transparent 60%),
+      radial-gradient(900px 600px at 85% 20%, rgba(224,80,62,.10), transparent 55%),
+      radial-gradient(800px 800px at 10% 90%, rgba(216,169,74,.08), transparent 55%),
+      linear-gradient(180deg, var(--bg2), var(--bg) 55%);
+    background-attachment:fixed;
+    min-height:100vh;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  /* starfield */
+  .stars{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.9), transparent),
+      radial-gradient(1px 1px at 70% 12%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,.6), transparent),
+      radial-gradient(1px 1px at 88% 60%, rgba(255,255,255,.8), transparent),
+      radial-gradient(1px 1px at 12% 85%, rgba(255,255,255,.6), transparent),
+      radial-gradient(1.5px 1.5px at 55% 45%, rgba(232,199,126,.8), transparent),
+      radial-gradient(1px 1px at 33% 18%, rgba(255,255,255,.5), transparent),
+      radial-gradient(1px 1px at 78% 82%, rgba(255,255,255,.5), transparent);
+    background-repeat:no-repeat;
+  }
+  .twinkle{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .twinkle i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold-soft);
+    box-shadow:0 0 6px 1px rgba(232,199,126,.6);animation:tw 4s ease-in-out infinite}
+  @keyframes tw{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.9;transform:scale(1)}}
+
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:clamp(28px,6vw,72px) clamp(18px,5vw,40px) 80px}
+
+  /* header */
+  .eyebrow{font-family:var(--display);letter-spacing:.42em;text-transform:uppercase;
+    font-size:.72rem;color:var(--gold-soft);font-weight:500;padding-left:.42em}
+  h1{font-family:var(--display);font-weight:800;line-height:1.02;
+    font-size:clamp(2.6rem,8vw,5.2rem);margin:.18em 0 .12em;letter-spacing:-.01em}
+  h1 .jp{display:block;font-size:.34em;font-weight:600;letter-spacing:.18em;color:var(--ink-dim);margin-top:.5em;letter-spacing:.3em}
+  .lede{max-width:54ch;color:var(--ink-dim);font-size:1.02rem;margin-top:.5em}
+  .lede b{color:var(--ink);font-weight:500}
+
+  /* console */
+  .console{margin-top:clamp(34px,6vw,56px);display:grid;
+    grid-template-columns:auto 1fr;gap:clamp(24px,5vw,52px);align-items:center;
+    border-top:1px solid var(--line-faint);border-bottom:1px solid var(--line-faint);
+    padding:clamp(26px,5vw,40px) 0}
+  @media(max-width:680px){.console{grid-template-columns:1fr;text-align:center;justify-items:center}}
+
+  /* zodiac wheel */
+  .wheel-wrap{position:relative;width:clamp(190px,46vw,236px);aspect-ratio:1}
+  .wheel{width:100%;height:100%;display:block}
+  .wheel .ring{fill:none;stroke:var(--line);stroke-width:1}
+  .wheel .spoke{stroke:var(--line-faint);stroke-width:1}
+  .wheel .eto{font-family:var(--display);font-size:15px;fill:var(--ink-dim);
+    text-anchor:middle;dominant-baseline:central;transition:fill .5s, font-size .5s}
+  .wheel .eto.on{fill:var(--gold-soft);font-size:21px;font-weight:700}
+  .wheel .marker{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:0;
+    transition:opacity .6s, transform .9s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%}
+  .wheel .marker.on{opacity:1}
+  .wheel .hub{font-family:var(--display);text-anchor:middle}
+  .wheel .hub-sign{fill:var(--gold-soft);font-size:13px;letter-spacing:.04em}
+  .wheel .hub-kanji{fill:var(--ink);font-size:34px;font-weight:800}
+  .wheel .hub-hint{fill:var(--ink-dim);font-size:8.5px;letter-spacing:.32em;text-transform:uppercase}
+
+  .controls{width:100%;max-width:440px}
+  .controls label{font-family:var(--display);font-size:.78rem;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--gold-soft);display:block;margin-bottom:.7em}
+  .field{display:flex;gap:10px;flex-wrap:wrap}
+  .field input{flex:1;min-width:160px;background:rgba(255,255,255,.04);
+    border:1px solid var(--line);color:var(--ink);font-family:var(--display);
+    font-size:1.5rem;font-weight:600;padding:.5em .7em;border-radius:3px;letter-spacing:.04em;
+    transition:border-color .25s, box-shadow .25s}
+  .field input::placeholder{color:var(--ink-dim);opacity:.5}
+  .field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(216,169,74,.2)}
+  .field button{background:var(--vermilion);color:#fff;border:none;cursor:pointer;
+    font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.06em;
+    padding:0 1.5em;border-radius:3px;white-space:nowrap;
+    box-shadow:0 4px 22px rgba(224,80,62,.34);transition:transform .15s, box-shadow .25s, background .2s}
+  .field button:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(224,80,62,.5)}
+  .field button:focus-visible{outline:3px solid var(--gold-soft);outline-offset:2px}
+  .field button:active{transform:translateY(0)}
+  .note{margin-top:.9em;font-size:.82rem;color:var(--ink-dim);min-height:1.2em}
+  .note.err{color:var(--vermilion)}
+
+  /* results */
+  .results{margin-top:clamp(40px,7vw,72px)}
+  .results[hidden]{display:none}
+  .sect-head{display:flex;align-items:baseline;gap:.7em;flex-wrap:wrap;margin-bottom:1.4em}
+  .sect-head h2{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,3.5vw,1.85rem);
+    letter-spacing:.01em}
+  .sect-head .yr{font-family:var(--display);color:var(--gold-soft);font-size:clamp(1.3rem,3.5vw,1.85rem);font-weight:800}
+  .sect-head .sub{color:var(--ink-dim);font-size:.9rem;margin-left:auto;letter-spacing:.04em}
+  @media(max-width:560px){.sect-head .sub{margin-left:0;flex-basis:100%}}
+
+  .featured{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2.4vw,22px);
+    position:relative;padding-top:18px}
+  /* constellation line behind the three brightest */
+  .featured::before{content:"";position:absolute;top:8px;left:16%;right:16%;height:1px;
+    background:repeating-linear-gradient(90deg,var(--gold) 0 5px,transparent 5px 12px);opacity:.5}
+  @media(max-width:720px){.featured{grid-template-columns:1fr}.featured::before{display:none}}
+
+  .card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border:1px solid var(--line-faint);border-radius:5px;padding:22px 20px 18px;
+    opacity:0;transform:translateY(14px);animation:rise .7s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .card .en{font-family:var(--display);font-weight:700;line-height:1.22;letter-spacing:-.005em}
+  .card .jp{font-family:var(--display);color:var(--gold-soft);margin-top:.45em;line-height:1.4;font-weight:500}
+  .card .yr{margin-top:1em;font-size:.72rem;letter-spacing:.28em;color:var(--ink-dim);
+    text-transform:uppercase;display:inline-block;padding-top:.7em;border-top:1px solid var(--line-faint)}
+
+  .card.feat{border-color:var(--line);background:linear-gradient(180deg,rgba(216,169,74,.08),rgba(255,255,255,.012))}
+  .card.feat::before{content:"";position:absolute;top:-18px;left:50%;width:9px;height:9px;
+    transform:translateX(-50%) rotate(45deg);background:var(--gold);
+    box-shadow:0 0 12px 2px rgba(216,169,74,.7)}
+  .card.feat .en{font-size:clamp(1.15rem,2.6vw,1.5rem)}
+  .card.feat .jp{font-size:clamp(.92rem,2vw,1.05rem)}
+  .card.feat .star{position:absolute;top:14px;right:16px;font-family:var(--display);
+    color:var(--gold);font-size:.85rem;letter-spacing:.1em;opacity:.85}
+
+  .houses{margin-top:clamp(36px,6vw,56px)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2.2vw,18px)}
+  @media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:440px){.grid{grid-template-columns:1fr}}
+  .grid .card .en{font-size:clamp(1rem,2.2vw,1.18rem)}
+  .grid .card .jp{font-size:.92rem}
+
+  footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line-faint);
+    color:var(--ink-dim);font-size:.8rem;max-width:62ch;line-height:1.7}
+  footer a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+
+  @media(prefers-reduced-motion:reduce){
+    .twinkle i{animation:none;opacity:.5}
+    .card{animation:none;opacity:1;transform:none}
+    .field button:hover{transform:none}
+    .wheel .marker{transition:opacity .3s}
+  }
+</style>
+</head>
+<body>
+<div class="stars" aria-hidden="true"></div>
+<div class="twinkle" aria-hidden="true" id="twinkle"></div>
+
+<main class="wrap">
+  <header>
+    <p class="eyebrow">Anime Zodiac &middot; 干支アニメ</p>
+    <h1>Your Anime Zodiac<span class="jp">あなたの干支アニメ</span></h1>
+    <p class="lede">The wheel turns once every twelve years. Tell it the year you were born and it aligns your sign &mdash; <b>three bright stars</b> drawn from the newest turn of your cycle, and <b>six more</b> from the older years that share it.</p>
+  </header>
+
+  <section class="console">
+    <div class="wheel-wrap">
+      <svg class="wheel" id="wheel" viewBox="0 0 240 240" role="img" aria-label="Zodiac wheel">
+        <circle class="ring" cx="120" cy="120" r="108"/>
+        <circle class="ring" cx="120" cy="120" r="78" style="opacity:.5"/>
+        <g id="spokes"></g>
+        <g id="etos"></g>
+        <polygon class="marker" id="marker" points="120,18 126,30 114,30"/>
+        <text class="hub hub-hint" x="120" y="98" id="hubHint">enter a year</text>
+        <text class="hub hub-kanji" x="120" y="126" id="hubKanji">占</text>
+        <text class="hub hub-sign" x="120" y="150" id="hubSign"></text>
+      </svg>
+    </div>
+
+    <div class="controls">
+      <label for="year">Year of birth</label>
+      <div class="field">
+        <input id="year" type="number" inputmode="numeric" placeholder="1990" min="1924" max="2026" autocomplete="off">
+        <button id="go">Align the stars</button>
+      </div>
+      <p class="note" id="note">Try the year you were born &mdash; or any year you like.</p>
+    </div>
+  </section>
+
+  <section class="results" id="results" hidden aria-live="polite">
+    <div class="sect-head">
+      <h2>Your ascendant &middot;</h2>
+      <span class="yr" id="ascYear"></span>
+      <span class="sub" id="ascSub"></span>
+    </div>
+    <div class="featured" id="featured"></div>
+
+    <div class="houses">
+      <div class="sect-head">
+        <h2>Your houses</h2>
+        <span class="sub" id="houseSub"></span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <footer>
+    Titles and release years are referenced from Wikipedia&rsquo;s <a href="https://en.wikipedia.org/wiki/List_of_years_in_anime" target="_blank" rel="noopener">year-in-anime</a> records (1990&ndash;2026); Japanese titles added alongside. The twelve-year cycle is the East Asian zodiac &mdash; which is why someone born in a Year of the Horse draws from the next Year of the Horse. A bit of fortune-telling for fun, not the stars&rsquo; official ruling.
+  </footer>
+</main>
+
+<script>
+/* ---- zodiac (12-year cycle = year mod 12) ---- */
+const ETO = [ /* index = year % 12 */
+  {en:"Monkey", kanji:"申"}, {en:"Rooster", kanji:"酉"}, {en:"Dog", kanji:"戌"},
+  {en:"Pig",    kanji:"亥"}, {en:"Rat",     kanji:"子"}, {en:"Ox",  kanji:"丑"},
+  {en:"Tiger",  kanji:"寅"}, {en:"Rabbit",  kanji:"卯"}, {en:"Dragon",kanji:"辰"},
+  {en:"Snake",  kanji:"巳"}, {en:"Horse",   kanji:"午"}, {en:"Goat", kanji:"未"}
+];
+const MIN_YEAR = 1990, MAX_YEAR = 2026;
+
+/* ---- dataset: notable anime by year, [English, Japanese] ---- */
+const DATA = {
+1990:[["Nadia: The Secret of Blue Water","ふしぎの海のナディア"],["Record of Lodoss War","ロードス島戦記"],["Chibi Maruko-chan","ちびまる子ちゃん"],["Brave Exkaiser","勇者エクスカイザー"],["Samurai Pizza Cats","キャッ党忍伝てやんでえ"],["Dragon Ball Z: The Tree of Might","ドラゴンボールZ とびっきりの最強対最強"],["Moomin","楽しいムーミン一家"],["NG Knight Ramune & 40","NG騎士ラムネ&40"],["Magical Taruruto-kun","まじかる☆タルるートくん"],["Cyber City Oedo 808","サイバーシティOEDO 808"],["The Hakkenden","八犬伝"],["Devil Hunter Yohko","魔物ハンター妖子"]],
+1991:[["Mobile Suit Gundam F91","機動戦士ガンダムF91"],["Only Yesterday","おもひでぽろぽろ"],["Roujin Z","老人Z"],["Future GPX Cyber Formula","新世紀GPXサイバーフォーミュラ"],["Otaku no Video","おたくのビデオ"],["3x3 Eyes","サザンアイズ"],["Goldfish Warning!","きんぎょ注意報!"],["Run, Melos!","走れメロス"],["Magical Princess Minky Momo","魔法のプリンセス ミンキーモモ"],["Reporter Blues","花のあすか組!"]],
+1992:[["Sailor Moon","美少女戦士セーラームーン"],["Yu Yu Hakusho","幽☆遊☆白書"],["Crayon Shin-chan","クレヨンしんちゃん"],["Porco Rosso","紅の豚"],["Tekkaman Blade","宇宙の騎士テッカマンブレード"],["Giant Robo","ジャイアントロボ THE ANIMATION"],["Tenchi Muyo! Ryo-Ohki","天地無用!魎皇鬼"],["Ghost Sweeper Mikami","GS美神"],["Hime-chan's Ribbon","姫ちゃんのリボン"],["Mama is a 4th Grader","ママは小学4年生"]],
+1993:[["Slam Dunk","SLAM DUNK"],["Ninja Scroll","獣兵衛忍風帖"],["Patlabor 2: The Movie","機動警察パトレイバー2 the Movie"],["Mobile Suit Victory Gundam","機動戦士Vガンダム"],["The Brave Express Might Gaine","勇者特急マイトガイン"],["Yaiba","剣勇伝説YAIBA"],["Irresponsible Captain Tylor","無責任艦長タイラー"],["Aoki Densetsu Shoot!","蒼き伝説シュート!"],["El-Hazard","神秘の世界エルハザード"],["Sailor Moon R","美少女戦士セーラームーンR"]],
+1994:[["Magic Knight Rayearth","魔法騎士レイアース"],["Macross 7","マクロス7"],["Mobile Fighter G Gundam","機動武闘伝Gガンダム"],["Marmalade Boy","ママレード・ボーイ"],["Pom Poko","平成狸合戦ぽんぽこ"],["Brave Police J-Decker","勇者警察ジェイデッカー"],["Blue Seed","碧奇魂 ブルーシード"],["Captain Tsubasa J","キャプテン翼J"],["Sailor Moon S","美少女戦士セーラームーンS"],["Red Baron","レッドバロン"]],
+1995:[["Neon Genesis Evangelion","新世紀エヴァンゲリオン"],["Ghost in the Shell","攻殻機動隊"],["Whisper of the Heart","耳をすませば"],["Slayers","スレイヤーズ"],["Mobile Suit Gundam Wing","新機動戦記ガンダムW"],["Fushigi Yûgi","ふしぎ遊戯"],["Romeo's Blue Skies","ロミオの青い空"],["Wedding Peach","愛天使伝説ウェディングピーチ"],["Nurse Angel Ririka SOS","ナースエンジェルりりかSOS"],["Bonobono","ぼのぼの"]],
+1996:[["Rurouni Kenshin","るろうに剣心"],["Detective Conan","名探偵コナン"],["The Vision of Escaflowne","天空のエスカフローネ"],["Dragon Ball GT","ドラゴンボールGT"],["Martian Successor Nadesico","機動戦艦ナデシコ"],["Slayers Next","スレイヤーズNEXT"],["After War Gundam X","機動新世紀ガンダムX"],["Kodocha","こどものおもちゃ"],["Those Who Hunt Elves","エルフを狩るモノたち"],["B't X","B'T-X ビートエックス"]],
+1997:[["Princess Mononoke","もののけ姫"],["Pokémon","ポケットモンスター"],["Berserk","剣風伝奇ベルセルク"],["Revolutionary Girl Utena","少女革命ウテナ"],["The End of Evangelion","新世紀エヴァンゲリオン劇場版"],["Flame of Recca","烈火の炎"],["Slayers Try","スレイヤーズTRY"],["Pokémon (The Electric Tale)","ポケットモンスター"],["Dr. Slump (1997)","Dr.スランプ"],["Hyper Police","はいぱーぽりす"]],
+1998:[["Cowboy Bebop","カウボーイビバップ"],["Cardcaptor Sakura","カードキャプターさくら"],["Trigun","トライガン"],["Initial D","頭文字D"],["Serial Experiments Lain","serial experiments lain"],["Outlaw Star","星方武侠アウトロースター"],["Pokémon: The First Movie","劇場版ポケットモンスター ミュウツーの逆襲"],["His and Her Circumstances","彼氏彼女の事情"],["Master Keaton","MASTERキートン"],["Bubblegum Crisis Tokyo 2040","バブルガムクライシス TOKYO 2040"]],
+1999:[["One Piece","ONE PIECE"],["Hunter × Hunter","HUNTER×HUNTER"],["Digimon Adventure","デジモンアドベンチャー"],["Great Teacher Onizuka","GTO"],["Turn A Gundam","∀ガンダム"],["Crest of the Stars","星界の紋章"],["Now and Then, Here and There","今、そこにいる僕"],["Medabots","メダロット"],["To Heart","To Heart"],["Excel Saga","エクセル・サーガ"]],
+2000:[["InuYasha","犬夜叉"],["FLCL","フリクリ"],["Vampire Hunter D: Bloodlust","バンパイアハンターD"],["Love Hina","ラブひな"],["Vandread","ヴァンドレッド"],["Boogiepop Phantom","ブギーポップは笑わない"],["Sakura Wars","サクラ大戦"],["Hamtaro","とっとこハム太郎"],["Gravitation","グラビテーション"],["Ghost Stories","学校の怪談"]],
+2001:[["Spirited Away","千と千尋の神隠し"],["Fruits Basket","フルーツバスケット"],["Hellsing","ヘルシング"],["The Prince of Tennis","テニスの王子様"],["Shaman King","シャーマンキング"],["Hikaru no Go","ヒカルの碁"],["Cowboy Bebop: The Movie","カウボーイビバップ 天国の扉"],["Noir","NOIR"],["s-CRY-ed","スクライド"],["Metropolis","メトロポリス"]],
+2002:[["Naruto","NARUTO -ナルト-"],["Ghost in the Shell: Stand Alone Complex","攻殻機動隊 STAND ALONE COMPLEX"],[".hack//Sign",".hack//SIGN"],["Full Metal Panic!","フルメタル・パニック!"],["RahXephon","ラーゼフォン"],["Chobits","ちょびっツ"],["Azumanga Daioh","あずまんが大王"],["Voices of a Distant Star","ほしのこえ"],["Princess Tutu","プリンセスチュチュ"],["Saikano","最終兵器彼女"]],
+2003:[["Fullmetal Alchemist","鋼の錬金術師"],["Astro Boy (2003)","鉄腕アトム"],["Wolf's Rain","ウルフズレイン"],["Planetes","プラネテス"],["Last Exile","ラストエグザイル"],["Gunslinger Girl","ガンスリンガー・ガール"],["Gungrave","ガングレイヴ"],["Kaleido Star","カレイドスター"],["Scrapped Princess","スクラップド・プリンセス"],["D.N.Angel","D・N・ANGEL"]],
+2004:[["Bleach","BLEACH"],["Howl's Moving Castle","ハウルの動く城"],["Monster","MONSTER"],["Samurai Champloo","サムライチャンプルー"],["Beck: Mongolian Chop Squad","BECK"],["Elfen Lied","エルフェンリート"],["Gankutsuou: The Count of Monte Cristo","巌窟王"],["School Rumble","スクールランブル"],["Rozen Maiden","ローゼンメイデン"],["Mai-HiME","舞-HiME"]],
+2005:[["Eureka Seven","交響詩篇エウレカセブン"],["Mushishi","蟲師"],["Honey and Clover","ハチミツとクローバー"],["Shakugan no Shana","灼眼のシャナ"],["Mobile Suit Gundam SEED Destiny","機動戦士ガンダムSEED DESTINY"],["Aria the Animation","ARIA The ANIMATION"],["Blood+","BLOOD+"],["Gun X Sword","ガン×ソード"],["Trinity Blood","トリニティ・ブラッド"],["Pani Poni Dash!","ぱにぽにだっしゅ!"]],
+2006:[["Code Geass","コードギアス 反逆のルルーシュ"],["The Melancholy of Haruhi Suzumiya","涼宮ハルヒの憂鬱"],["Death Note","DEATH NOTE"],["Gintama","銀魂"],["Higurashi When They Cry","ひぐらしのなく頃に"],["Ouran High School Host Club","桜蘭高校ホスト部"],["The Girl Who Leapt Through Time","時をかける少女"],["Welcome to the NHK","NHKにようこそ!"],["Black Lagoon","ブラック・ラグーン"],["Fate/stay night","Fate/stay night"]],
+2007:[["Gurren Lagann","天元突破グレンラガン"],["Clannad","CLANNAD"],["Lucky Star","らき☆すた"],["Baccano!","バッカーノ!"],["Dennō Coil","電脳コイル"],["Sword of the Stranger","ストレンヂア 無皇刃譚"],["Mononoke","モノノ怪"],["Toward the Terra","地球へ…"],["Sayonara, Zetsubou-Sensei","さよなら絶望先生"],["Nodame Cantabile","のだめカンタービレ"]],
+2008:[["Code Geass R2","コードギアス 反逆のルルーシュR2"],["Toradora!","とらドラ!"],["Soul Eater","ソウルイーター"],["Clannad After Story","CLANNAD 〜AFTER STORY〜"],["Spice and Wolf","狼と香辛料"],["Ponyo","崖の上のポニョ"],["Macross Frontier","マクロスF"],["Natsume's Book of Friends","夏目友人帳"],["Kaiba","カイバ"],["Library War","図書館戦争"]],
+2009:[["Fullmetal Alchemist: Brotherhood","鋼の錬金術師 FULLMETAL ALCHEMIST"],["K-On!","けいおん!"],["Bakemonogatari","化物語"],["Eden of the East","東のエデン"],["Summer Wars","サマーウォーズ"],["Cross Game","クロスゲーム"],["Darker than Black: Gemini of the Meteor","DARKER THAN BLACK -流星の双子-"],["Sora no Otoshimono","そらのおとしもの"],["Aoi Bungaku","青い文学シリーズ"],["Tegami Bachi","テガミバチ"]],
+2010:[["Durarara!!","デュラララ!!"],["Angel Beats!","Angel Beats!"],["The Tatami Galaxy","四畳半神話大系"],["K-On!!","けいおん!!"],["Highschool of the Dead","学園黙示録 HIGHSCHOOL OF THE DEAD"],["Panty & Stocking with Garterbelt","パンティ&ストッキングwithガーターベルト"],["Katanagatari","刀語"],["Shiki","屍鬼"],["The World God Only Knows","神のみぞ知るセカイ"],["Bakuman","バクマン。"]],
+2011:[["Puella Magi Madoka Magica","魔法少女まどか☆マギカ"],["Steins;Gate","シュタインズ・ゲート"],["Hunter × Hunter (2011)","HUNTER×HUNTER"],["Fate/Zero","Fate/Zero"],["Nichijou","日常"],["Anohana: The Flower We Saw That Day","あの日見た花の名前を僕達はまだ知らない。"],["Tiger & Bunny","TIGER & BUNNY"],["Mawaru Penguindrum","輪るピングドラム"],["Usagi Drop","うさぎドロップ"],["Guilty Crown","ギルティクラウン"]],
+2012:[["Sword Art Online","ソードアート・オンライン"],["Psycho-Pass","PSYCHO-PASS サイコパス"],["JoJo's Bizarre Adventure","ジョジョの奇妙な冒険"],["Hyouka","氷菓"],["Kids on the Slope","坂道のアポロン"],["Chuunibyou Demo Koi ga Shitai!","中二病でも恋がしたい!"],["Girls und Panzer","ガールズ&パンツァー"],["From the New World","新世界より"],["Wolf Children","おおかみこどもの雨と雪"],["Magi: The Labyrinth of Magic","マギ"]],
+2013:[["Attack on Titan","進撃の巨人"],["Kill la Kill","キルラキル"],["Silver Spoon","銀の匙"],["Monogatari Series Second Season","〈物語〉シリーズ セカンドシーズン"],["The Eccentric Family","有頂天家族"],["Free!","Free!"],["Log Horizon","ログ・ホライズン"],["The Wind Rises","風立ちぬ"],["Gargantia on the Verdurous Planet","翠星のガルガンティア"],["Hataraku Maou-sama!","はたらく魔王さま!"]],
+2014:[["Tokyo Ghoul","東京喰種トーキョーグール"],["Haikyu!!","ハイキュー!!"],["Your Lie in April","四月は君の嘘"],["Parasyte -the maxim-","寄生獣 セイの格率"],["No Game No Life","ノーゲーム・ノーライフ"],["Knights of Sidonia","シドニアの騎士"],["Terror in Resonance","残響のテロル"],["Barakamon","ばらかもん"],["Aldnoah.Zero","アルドノア・ゼロ"],["Akame ga Kill!","アカメが斬る!"]],
+2015:[["One-Punch Man","ワンパンマン"],["Assassination Classroom","暗殺教室"],["Sound! Euphonium","響け!ユーフォニアム"],["Food Wars! Shokugeki no Soma","食戟のソーマ"],["Death Parade","デス・パレード"],["Gate","GATE 自衛隊 彼の地にて、斯く戦えり"],["Prison School","監獄学園"],["Owarimonogatari","終物語"],["Charlotte","Charlotte"],["Snow White with the Red Hair","赤髪の白雪姫"]],
+2016:[["Your Name","君の名は。"],["Re:Zero − Starting Life in Another World","Re:ゼロから始める異世界生活"],["Mob Psycho 100","モブサイコ100"],["My Hero Academia","僕のヒーローアカデミア"],["Yuri!!! on Ice","ユーリ!!! on ICE"],["Erased","僕だけがいない街"],["A Silent Voice","聲の形"],["March Comes in Like a Lion","3月のライオン"],["Bungo Stray Dogs","文豪ストレイドッグス"],["Drifters","DRIFTERS"]],
+2017:[["Made in Abyss","メイドインアビス"],["Land of the Lustrous","宝石の国"],["Girls' Last Tour","少女終末旅行"],["The Ancient Magus' Bride","魔法使いの嫁"],["Saga of Tanya the Evil","幼女戦記"],["Kakegurui","賭ケグルイ"],["Princess Principal","プリンセス・プリンシパル"],["Little Witch Academia","リトルウィッチアカデミア"],["Welcome to the Ballroom","ボールルームへようこそ"],["My Hero Academia Season 2","僕のヒーローアカデミア 第2期"]],
+2018:[["Violet Evergarden","ヴァイオレット・エヴァーガーデン"],["A Place Further than the Universe","宇宙よりも遠い場所"],["Devilman Crybaby","DEVILMAN crybaby"],["Megalo Box","メガロボクス"],["Zombie Land Saga","ゾンビランドサガ"],["Cells at Work!","はたらく細胞"],["Banana Fish","BANANA FISH"],["Bloom Into You","やがて君になる"],["SSSS.Gridman","SSSS.GRIDMAN"],["Rascal Does Not Dream of Bunny Girl Senpai","青春ブタ野郎はバニーガール先輩の夢を見ない"]],
+2019:[["Demon Slayer: Kimetsu no Yaiba","鬼滅の刃"],["Vinland Saga","ヴィンランド・サガ"],["Mob Psycho 100 II","モブサイコ100 II"],["Dr. Stone","ドクターストーン"],["The Promised Neverland","約束のネバーランド"],["Kaguya-sama: Love Is War","かぐや様は告らせたい"],["Beastars","BEASTARS"],["Fire Force","炎炎ノ消防隊"],["Weathering with You","天気の子"],["Given","ギヴン"]],
+2020:[["Jujutsu Kaisen","呪術廻戦"],["Demon Slayer: Mugen Train","劇場版「鬼滅の刃」無限列車編"],["Keep Your Hands Off Eizouken!","映像研には手を出すな!"],["Great Pretender","GREAT PRETENDER"],["Dorohedoro","ドロヘドロ"],["Tower of God","神之塔"],["Deca-Dence","デカダンス"],["The God of High School","ゴッド・オブ・ハイスクール"],["Akudama Drive","アクダマドライブ"],["BNA: Brand New Animal","BNA ビー・エヌ・エー"]],
+2021:[["Odd Taxi","オッドタクシー"],["Ranking of Kings","王様ランキング"],["86 Eighty-Six","86―エイティシックス―"],["Sonny Boy","サニーボーイ"],["To Your Eternity","不滅のあなたへ"],["Vivy: Fluorite Eye's Song","Vivy -Fluorite Eye's Song-"],["Mushoku Tensei: Jobless Reincarnation","無職転生"],["Komi Can't Communicate","古見さんは、コミュ症です。"],["Sk8 the Infinity","SK∞ エスケーエイト"],["Wonder Egg Priority","ワンダーエッグ・プライオリティ"]],
+2022:[["Chainsaw Man","チェンソーマン"],["Cyberpunk: Edgerunners","サイバーパンク エッジランナーズ"],["Spy × Family","SPY×FAMILY"],["Bocchi the Rock!","ぼっち・ざ・ろっく!"],["Lycoris Recoil","リコリス・リコイル"],["Mob Psycho 100 III","モブサイコ100 III"],["My Dress-Up Darling","その着せ替え人形は恋をする"],["Summer Time Rendering","サマータイムレンダ"],["Call of the Night","よふかしのうた"],["Ya Boy Kongming!","パリピ孔明"]],
+2023:[["Frieren: Beyond Journey's End","葬送のフリーレン"],["Oshi no Ko","【推しの子】"],["Jujutsu Kaisen Season 2","呪術廻戦 懐玉・玉折"],["Vinland Saga Season 2","ヴィンランド・サガ SEASON2"],["Hell's Paradise","地獄楽"],["Heavenly Delusion","天国大魔境"],["The Apothecary Diaries","薬屋のひとりごと"],["Skip and Loafer","スキップとローファー"],["The Boy and the Heron","君たちはどう生きるか"],["Pluto","PLUTO"]],
+2024:[["Dandadan","ダンダダン"],["Solo Leveling","俺だけレベルアップな件"],["Delicious in Dungeon","ダンジョン飯"],["Kaiju No. 8","怪獣8号"],["Wind Breaker","ウィンドブレイカー"],["Blue Box","アオのハコ"],["Makeine: Too Many Losing Heroines!","負けヒロインが多すぎる!"],["Look Back","ルックバック"],["Sound! Euphonium 3","響け!ユーフォニアム3"],["A Sign of Affection","ゆびさきと恋々"]],
+2025:[["Demon Slayer: Infinity Castle","劇場版「鬼滅の刃」無限城編"],["Sakamoto Days","SAKAMOTO DAYS"],["The Apothecary Diaries Season 2","薬屋のひとりごと 第2期"],["Medalist","メダリスト"],["Solo Leveling Season 2","俺だけレベルアップな件 -ARISE-"],["The Fragrant Flower Blooms with Dignity","薫る花は凛と咲く"],["Witch Watch","ウィッチウォッチ"],["Lazarus","ラザロ"],["Gachiakuta","ガチアクタ"],["Zenshu","ぜんしゅう"]],
+2026:[["The Ghost in the Shell","攻殻機動隊 THE GHOST IN THE SHELL"],["Puella Magi Madoka Magica: Walpurgisnacht Rising","劇場版 魔法少女まどか☆マギカ ワルプルギスの廻天"],["The Apothecary Diaries: The Movie","劇場版 薬屋のひとりごと"],["All You Need Is Kill","オール・ユー・ニード・イズ・キル"],["Made in Abyss: Awakening Mystery","メイドインアビス"],["Sound! Euphonium: The Final Movie","響け!ユーフォニアム"],["Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","機動戦士ガンダム 閃光のハサウェイ"],["That Time I Got Reincarnated as a Slime the Movie","劇場版 転生したらスライムだった件"],["Kill Blue","キルアオ"],["Rascal Does Not Dream of a Dear Friend","青春ブタ野郎"],["Detective Conan: Fallen Angel of the Highway","名探偵コナン"],["Doraemon: New Nobita and the Castle of the Undersea Devil","ドラえもん のび太の新・海底鬼岩城"]]
+};
+
+/* ---- helpers ---- */
+const $ = s => document.querySelector(s);
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function mod(n,m){return ((n%m)+m)%m;}
+
+// all cycle years within range that share the birth year's sign, newest first
+function cycleYears(birth){
+  const r = mod(birth,12);
+  const out=[];
+  for(let y=MAX_YEAR;y>=MIN_YEAR;y--){ if(mod(y,12)===r) out.push(y); }
+  return out; // descending
+}
+
+// spread `total` picks across `years` as evenly as possible, remainder placed at random
+function spread(total, n){
+  const base=Math.floor(total/n), rem=total-base*n;
+  const counts=Array(n).fill(base);
+  shuffle([...Array(n).keys()]).slice(0,rem).forEach(i=>counts[i]++);
+  return counts;
+}
+
+/* ---- build the wheel ---- */
+(function buildWheel(){
+  const spokes=$("#spokes"), etos=$("#etos");
+  const cx=120, cy=120, rText=93, rSpoke=108;
+  for(let i=0;i<12;i++){
+    // place sign at top (index 4 = Rat is conventional top, but we anchor user's sign to the pointer at top dynamically)
+    const ang=(-90 + i*30) * Math.PI/180;
+    const x=cx+rText*Math.cos(ang), y=cy+rText*Math.sin(ang);
+    const sx=cx+rSpoke*Math.cos(ang), sy=cy+rSpoke*Math.sin(ang);
+    const ln=document.createElementNS("http://www.w3.org/2000/svg","line");
+    ln.setAttribute("class","spoke");
+    ln.setAttribute("x1",cx);ln.setAttribute("y1",cy);ln.setAttribute("x2",sx);ln.setAttribute("y2",sy);
+    spokes.appendChild(ln);
+    const t=document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.setAttribute("class","eto");t.setAttribute("x",x);t.setAttribute("y",y);
+    t.dataset.idx=i; t.textContent=ETO[i].kanji;
+    etos.appendChild(t);
+  }
+})();
+
+const twk=$("#twinkle");
+for(let i=0;i<14;i++){const s=document.createElement("i");s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";s.style.animationDelay=(Math.random()*4)+"s";twk.appendChild(s);}
+
+/* ---- render a card ---- */
+function cardHTML(item, year, feat, idx){
+  const delay = (feat? idx*0.12 : 0.36 + idx*0.07);
+  const star = feat? `<span class="star">☆ ${["I","II","III"][idx]||""}</span>`:"";
+  return `<article class="card ${feat?'feat':''}" style="animation-delay:${delay}s">
+    ${star}
+    <div class="en">${item[0]}</div>
+    <div class="jp" lang="ja">${item[1]}</div>
+    <div class="yr">${year}</div>
+  </article>`;
+}
+
+/* ---- main ---- */
+function align(){
+  const note=$("#note");
+  const raw=$("#year").value.trim();
+  const birth=parseInt(raw,10);
+  if(!raw || isNaN(birth)){ note.textContent="Enter a four-digit year to read your sign."; note.classList.add("err"); return; }
+  if(birth>MAX_YEAR){ note.textContent=`The wheel only reaches ${MAX_YEAR}. Try an earlier year.`; note.classList.add("err"); return; }
+  if(birth<1900){ note.textContent="That's a little before anime. Try a year from 1900 on."; note.classList.add("err"); return; }
+  note.classList.remove("err");
+
+  const sign=ETO[mod(birth,12)];
+  note.textContent=`${birth} — Year of the ${sign.en}. Your sign returns every twelve years.`;
+
+  // highlight wheel + rotate pointer to the sign
+  document.querySelectorAll(".wheel .eto").forEach(t=>t.classList.toggle("on", +t.dataset.idx===mod(birth,12)));
+  const idx=mod(birth,12);
+  const angle = idx*30; // pointer starts at top (idx anchored by -90 offset above)
+  const marker=$("#marker");
+  marker.classList.add("on");
+  marker.style.transform=`rotate(${angle}deg)`;
+  $("#hubHint").textContent="year of the";
+  $("#hubKanji").textContent=sign.kanji;
+  $("#hubSign").textContent=sign.en;
+
+  // pick anime
+  const years=cycleYears(birth);
+  const ascYear=years[0];
+  const others=years.slice(1);
+  const featured=shuffle(DATA[ascYear]).slice(0,3);
+
+  let houseCards=[];
+  if(others.length){
+    const counts=spread(6, others.length);
+    others.forEach((y,i)=>{
+      shuffle(DATA[y]).slice(0,counts[i]).forEach(a=>houseCards.push({a,y}));
+    });
+  } else {
+    // single-year edge case: fill the rest from the same year
+    shuffle(DATA[ascYear]).filter(x=>!featured.includes(x)).slice(0,6).forEach(a=>houseCards.push({a,y:ascYear}));
+  }
+  houseCards=shuffle(houseCards);
+
+  // write the DOM
+  $("#ascYear").textContent=ascYear;
+  $("#ascSub").textContent=`The three brightest of your newest cycle`;
+  $("#featured").innerHTML=featured.map((it,i)=>cardHTML(it,ascYear,true,i)).join("");
+  const houseYears = others.length ? others.slice().sort((a,b)=>b-a).join(" · ") : `${ascYear}`;
+  $("#houseSub").textContent=`Drawn from ${houseYears}`;
+  $("#grid").innerHTML=houseCards.map((c,i)=>cardHTML(c.a,c.y,false,i)).join("");
+
+  const res=$("#results");
+  res.hidden=false;
+  // re-trigger card animations on subsequent runs
+  res.querySelectorAll(".card").forEach(c=>{c.style.animation="none";c.offsetHeight;c.style.animation="";});
+
+  res.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+$("#go").addEventListener("click",align);
+$("#year").addEventListener("keydown",e=>{if(e.key==="Enter")align();});
+</script>
+</body>
+</html>
