@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mistria Crop Profit Calculator</title>
+<meta name="description" content="Work out the profit of any Fields of Mistria crop before the season runs out.">
+<link rel="icon" href="assets/crops/Turnip.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#calculator">Skip to the calculator</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="kicker">Fields of Mistria</p>
+    <h1>Crop&nbsp;Profit Calculator</h1>
+    <p class="tagline">
+      Pick a crop, plant it on a day, and find out what your harvest is worth
+      before the season ends. Seed prices are General&nbsp;Store prices.
+    </p>
+  </div>
+</header>
+
+<main class="wrap" id="calculator">
+
+  <!-- ─────────────────────────────  1. season  ───────────────────────────── -->
+  <section class="panel">
+    <fieldset class="season-picker">
+      <legend><span class="step">1</span> Choose a season</legend>
+      <div class="season-tabs" id="season-tabs"><!-- built by app.js --></div>
+    </fieldset>
+  </section>
+
+  <!-- ─────────────────────────────  2. crop  ─────────────────────────────── -->
+  <section class="panel">
+    <fieldset class="crop-picker">
+      <legend><span class="step">2</span> Choose a crop</legend>
+      <p class="hint" id="crop-hint">
+        Use the arrow keys to move between crops.
+        <span class="legend-chip"><span class="badge badge-tree" aria-hidden="true">tree</span> fruit tree</span>
+        <span class="legend-chip"><span class="badge badge-repair" aria-hidden="true">★</span> stocked after the store is repaired</span>
+      </p>
+      <div class="crop-grid" id="crop-grid" aria-describedby="crop-hint"><!-- built by app.js --></div>
+    </fieldset>
+  </section>
+
+  <!-- ────────────────────────  3. amount + planting day  ─────────────────── -->
+  <section class="panel">
+    <fieldset>
+      <legend><span class="step">3</span> Plant it</legend>
+
+      <div class="controls">
+        <div class="control">
+          <label for="qty">How many did you plant?</label>
+          <input type="number" id="qty" name="qty" min="1" max="999" step="1" value="1" inputmode="numeric">
+          <p class="control-note" id="qty-note">1 to 999 plants.</p>
+        </div>
+
+        <div class="control">
+          <label for="day">Day of the season you planted</label>
+          <div class="day-row">
+            <input type="range" id="day-slider" min="1" max="28" step="1" value="1"
+                   aria-label="Planting day slider" aria-describedby="day-note">
+            <input type="number" id="day" name="day" min="1" max="28" step="1" value="1" inputmode="numeric">
+          </div>
+          <p class="control-note" id="day-note">A season is 28 days long.</p>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- ─────────────────────────────  results  ────────────────────────────── -->
+  <section class="panel result-panel" aria-labelledby="result-heading">
+    <h2 id="result-heading"><span class="step">4</span> Your harvest</h2>
+
+    <div id="result" class="result">
+      <!-- built by app.js -->
+    </div>
+
+    <!--
+      The result block is re-rendered on every keystroke and slider tick, so it
+      is a terrible live region. This short summary is announced instead.
+    -->
+    <p id="result-status" class="visually-hidden" role="status" aria-live="polite"></p>
+
+    <h3 class="calendar-heading" id="calendar-heading">Season calendar</h3>
+    <p class="hint" id="calendar-hint">Each square is one day of the 28&#8209;day season.</p>
+    <ol class="calendar" id="calendar" aria-describedby="calendar-hint"><!-- built by app.js --></ol>
+    <ul class="calendar-key">
+      <li><span class="key-swatch key-idle" aria-hidden="true"></span> Nothing planted</li>
+      <li><span class="key-swatch key-plant" aria-hidden="true">🌱</span> Planted</li>
+      <li><span class="key-swatch key-grow" aria-hidden="true"></span> Growing</li>
+      <li><span class="key-swatch key-harvest" aria-hidden="true">✦</span> Harvest day</li>
+      <li><span class="key-swatch key-wasted" aria-hidden="true">✕</span> Season ended first</li>
+    </ul>
+  </section>
+
+  <!-- ───────────────────────────  compare table  ────────────────────────── -->
+  <section class="panel" aria-labelledby="compare-heading">
+    <h2 id="compare-heading">Every crop this season</h2>
+    <p class="hint">
+      Profit for the same planting day and quantity you chose above,
+      best first. Select a row's crop name to load it into the calculator.
+    </p>
+    <div class="table-scroll">
+      <table class="compare" id="compare">
+        <caption class="visually-hidden" id="compare-caption">
+          Profit by crop for the current season, planting day and quantity.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Crop</th>
+            <th scope="col">Seed</th>
+            <th scope="col">Sells for</th>
+            <th scope="col">Grows in</th>
+            <th scope="col">Harvests</th>
+            <th scope="col">Profit</th>
+          </tr>
+        </thead>
+        <tbody><!-- built by app.js --></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>
+      Crop values, growth times and sprites come from the
+      <a href="https://fieldsofmistria.wiki.gg/wiki/Spring">Fields of Mistria Wiki</a>.
+      Sell prices are base quality &mdash; silver, gold and rainbow stars are worth more.
+      Fields of Mistria is made by NPC Studio; this is a fan-made tool.
+    </p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
